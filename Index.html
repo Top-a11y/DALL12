@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>DALL12 Technologies</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Orbitron:wght@500;700;900&display=swap">
+<style>
+:root{--bg:#fff;--ink:#161b3a;--mute:#4d5273;--card:#f3f0ff;--line:#161b3a;--brand:#5b16f0;--soft:#b0cdf7;--lilac:#cc8cf7;--onbrand:#fff;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0d1030;--ink:#f1efff;--mute:#a9b0d6;--card:#171b45;--line:#b0cdf7;--brand:#7a3dff}}
+:root[data-theme="dark"]{--bg:#0d1030;--ink:#f1efff;--mute:#a9b0d6;--card:#171b45;--line:#b0cdf7;--brand:#7a3dff}
+*,*:before,*:after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Poppins,system-ui,sans-serif;line-height:1.6;overflow-x:hidden}
+#gl{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+header,main,footer{position:relative;z-index:1}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 5vw;position:sticky;top:env(safe-area-inset-top,0px);background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(10px);border-bottom:2px solid var(--line);z-index:5}
+.logo{font-weight:800;font-size:1.3rem;letter-spacing:.04em;color:var(--ink);text-decoration:none}
+.logo small{font-weight:400;font-size:.7rem;margin-left:6px;letter-spacing:0}
+nav{display:flex;gap:4px;flex-wrap:wrap;align-items:center}
+nav a{color:var(--ink);text-decoration:none;font-weight:600;font-size:.88rem;padding:6px 12px;border-radius:99px}
+nav a.on{background:var(--brand);color:#fff}
+nav a:hover{background:var(--card)}nav a.on:hover{background:var(--brand)}
+button,.btn{font:inherit;font-weight:700;cursor:pointer;background:var(--card);color:var(--ink);border:2px solid var(--line);border-radius:99px;padding:10px 22px;box-shadow:4px 4px 0 var(--line);text-decoration:none;display:inline-block}
+button:active,.btn:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--line)}
+.btn.p,button.p{background:var(--brand);color:#fff}
+:focus-visible{outline:3px solid var(--lilac);outline-offset:2px}
+.page{display:none;padding:6vh 5vw 10vh;max-width:1100px;margin:0 auto;min-height:80vh}
+.page.on{display:block}
+h1{font-size:clamp(2.2rem,7vw,4.6rem);line-height:1.05;margin:0 0 18px;font-weight:800;max-width:11em}
+h2{font-size:clamp(1.6rem,4vw,2.4rem);margin:0 0 12px;font-weight:800}
+p.lead{font-size:1.1rem;color:var(--mute);max-width:34em}
+.hero{padding-top:6vh;max-width:640px}
+.ask{display:flex;gap:10px;margin:26px 0;flex-wrap:wrap}
+.ask input{flex:1 1 220px}
+input,select,textarea{font:inherit;color:var(--ink);background:var(--bg);border:2px solid var(--line);border-radius:14px;padding:11px 14px;min-width:0}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{font-size:.85rem;padding:7px 16px;box-shadow:3px 3px 0 var(--line)}
+.chip.on{background:var(--brand);color:#fff}
+.stack{display:grid;gap:14px;margin-top:22px}
+.acc{border:2px solid var(--line);border-radius:22px;background:var(--bg);box-shadow:5px 5px 0 var(--line);overflow:hidden}
+.acc>button{width:100%;text-align:left;border:0;box-shadow:none;border-radius:0;background:var(--bg);display:flex;align-items:center;gap:14px;font-size:1.15rem;padding:18px 20px}
+.dot{width:26px;height:26px;border-radius:50%;border:2px solid var(--line);background:var(--soft);flex:none}
+.acc:nth-child(even) .dot{background:var(--lilac)}
+.acc .body{display:none;padding:0 20px 20px 60px;color:var(--mute)}
+.acc.open .body{display:block}
+.acc ul{margin:8px 0 14px;padding-left:18px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px;margin-top:22px}
+.panel{background:var(--card);border:2px solid var(--line);border-radius:22px;padding:22px;box-shadow:5px 5px 0 var(--line)}
+.meter{height:14px;border-radius:99px;border:2px solid var(--line);overflow:hidden;margin:12px 0;background:var(--bg)}
+.meter i{display:block;height:100%;width:0;background:var(--brand);transition:width .3s,background .3s}
+label.ck{display:flex;gap:10px;align-items:center;padding:6px 0;cursor:pointer}
+.out{white-space:pre-wrap;color:var(--ink);margin-top:12px}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0}
+footer{background:var(--soft);color:#161b3a;border-top:2px solid #161b3a;padding:22px 5vw;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-weight:700}
+footer a{color:#161b3a}
+#bot{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:9}
+#bot>button{width:60px;height:60px;padding:0;border-radius:50%;background:var(--brand);color:#fff;font-size:1.5rem}
+#box{display:none;position:absolute;right:0;bottom:72px;width:min(360px,calc(100vw - 32px));background:var(--bg);border:2px solid var(--line);border-radius:22px;box-shadow:5px 5px 0 var(--line);overflow:hidden}
+#box.on{display:block}
+#log{height:300px;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:8px}
+.m{padding:9px 14px;border-radius:16px;max-width:85%;font-size:.9rem;background:var(--card)}
+.m.u{align-self:flex-end;background:var(--brand);color:#fff}
+.m a{color:inherit;font-weight:700}
+#bf{display:flex;gap:8px;padding:10px;border-top:2px solid var(--line)}
+#bf input{flex:1}
+#bf button{padding:8px 14px;box-shadow:none}
+.tg{padding:6px 12px;box-shadow:2px 2px 0 var(--line);font-size:.8rem}
+@media(max-width:640px){#gl{opacity:.4}nav a{padding:5px 9px;font-size:.8rem}.logo small{display:none}.acc .body{padding-left:20px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+/* FUTURE THEME */
+:root,:root[data-theme]{--bg:#04051a;--ink:#e8ecff;--mute:#8f9bd1;--card:rgba(24,20,78,.42);--line:rgba(53,224,255,.45);--brand:#6d2bff;--soft:#0a1a4a;--lilac:#c06bff;--cy:#35e0ff}
+#theme{display:none}
+body{background:radial-gradient(1200px 700px at 85% -10%,rgba(109,43,255,.35),transparent),radial-gradient(900px 600px at -10% 110%,rgba(53,224,255,.18),transparent),var(--bg)}
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:40;background:repeating-linear-gradient(0deg,rgba(255,255,255,.035) 0 1px,transparent 1px 3px)}
+h1,h2,h3,.logo{font-family:Orbitron,Poppins,sans-serif}
+h1{font-size:clamp(1.9rem,6vw,3.8rem);line-height:1.12;background:linear-gradient(90deg,#fff 10%,#35e0ff 60%,#c06bff);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 18px rgba(53,224,255,.35))}
+h2{text-shadow:0 0 18px rgba(53,224,255,.5)}
+h3{font-size:1rem;letter-spacing:.06em;color:var(--cy)}
+header{background:rgba(4,5,26,.6);border-bottom:1px solid var(--line);box-shadow:0 0 30px rgba(53,224,255,.12)}
+.logo{text-shadow:0 0 14px var(--cy)}
+nav a{color:var(--mute)}nav a:hover{background:rgba(53,224,255,.1);color:#fff}
+nav a.on,nav a.on:hover{background:rgba(53,224,255,.15);color:#fff;box-shadow:inset 0 0 0 1px var(--cy),0 0 16px rgba(53,224,255,.4)}
+button,.btn{background:rgba(53,224,255,.08);color:var(--ink);border:1px solid var(--cy);border-radius:6px;box-shadow:0 0 16px rgba(53,224,255,.3);transition:box-shadow .2s,transform .2s}
+button:hover,.btn:hover{box-shadow:0 0 28px rgba(53,224,255,.7);transform:translateY(-2px)}
+button:active,.btn:active{transform:scale(.97);box-shadow:0 0 10px var(--cy)}
+.btn.p,button.p{background:linear-gradient(135deg,#6d2bff,#1aa7d8);border-color:transparent;color:#fff;box-shadow:0 0 24px rgba(109,43,255,.6)}
+.chip.on{background:linear-gradient(135deg,#6d2bff,#1aa7d8);border-color:transparent;color:#fff}
+.chip{box-shadow:0 0 12px rgba(53,224,255,.25)}
+.panel,.acc{position:relative;background:var(--card);backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:10px;box-shadow:0 0 30px rgba(109,43,255,.2);overflow:hidden}
+.panel::before,.acc::before{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(260px circle at var(--x,50%) var(--y,-40%),rgba(53,224,255,.18),transparent 70%)}
+.panel::after{content:'';position:absolute;right:8px;bottom:8px;width:16px;height:16px;border:2px solid var(--cy);border-left:0;border-top:0;pointer-events:none}
+.acc>button{background:transparent;border-radius:0}
+.dot{background:var(--cy);border:0;box-shadow:0 0 14px var(--cy);width:14px;height:14px}
+.acc:nth-child(even) .dot{background:var(--lilac);box-shadow:0 0 14px var(--lilac)}
+.acc .body{padding-left:48px}
+input,select,textarea{background:rgba(4,5,26,.7);border:1px solid var(--line);border-radius:6px;color:var(--ink)}
+input:focus,textarea:focus,select:focus{outline:none;border-color:var(--cy);box-shadow:0 0 14px rgba(53,224,255,.5)}
+.meter{border:1px solid var(--line);border-radius:6px}
+.meter i{box-shadow:0 0 14px currentColor}
+footer{background:rgba(4,5,26,.8);color:var(--ink);border-top:1px solid var(--line)}footer a{color:var(--cy)}
+#box{background:rgba(4,5,26,.92);backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:10px;box-shadow:0 0 36px rgba(53,224,255,.3)}
+.m{border-radius:8px;border:1px solid rgba(53,224,255,.2)}
+.m.u{background:linear-gradient(135deg,#6d2bff,#1aa7d8);border-color:transparent}
+#bf{border-top:1px solid var(--line)}
+#bot>button{box-shadow:0 0 28px rgba(109,43,255,.8)}
+a{color:var(--cy)}
+#boot{position:fixed;inset:0;z-index:60;background:#04051a;display:grid;place-items:center;font-family:Orbitron,sans-serif;color:var(--cy);text-align:center;transition:opacity .6s}
+#boot.off{opacity:0;pointer-events:none}
+#boot b{display:block;font-size:2.4rem;letter-spacing:.2em;text-shadow:0 0 24px var(--cy)}
+#boot span{display:block;font-size:.8rem;margin:8px 0 14px;color:var(--mute)}
+#boot i{display:block;width:220px;height:3px;background:rgba(53,224,255,.2);margin:auto;position:relative;overflow:hidden}
+#boot i:after{content:'';position:absolute;inset:0;background:var(--cy);box-shadow:0 0 12px var(--cy);animation:ld 1.4s ease-out forwards;transform:translateX(-100%)}
+@keyframes ld{to{transform:none}}
+</style>
+</head>
+<body>
+<div id="boot" aria-hidden="true"><div><b>DALL12</b><span>initializing core</span><i></i></div></div>
+<canvas id="gl" aria-hidden="true"></canvas>
+<header>
+  <a class="logo" href="#home">DALL12<small>Technologies</small></a>
+  <nav aria-label="Main">
+    <a href="#home">Home</a><a href="#services">Services</a><a href="#lab">Tools</a><a href="#plan">Plan a project</a><a href="#contact">Contact</a>
+    <button class="tg" id="theme" aria-label="Switch light or dark theme">Theme</button>
+  </nav>
+</header>
+<main>
+<section class="page" id="home">
+  <div class="hero">
+    <h1>We turn ideas into digital reality.</h1>
+    <p class="lead">Websites, software, security, design and computer repair, built by one team you can trust. Tell us what you need and get a straight answer.</p>
+    <form class="ask" id="heroAsk">
+      <input id="heroQ" placeholder="What do you want to build or fix?" aria-label="Describe your need">
+      <button class="p" type="submit">Ask DALL12</button>
+    </form>
+    <div class="chips" id="homeChips"></div>
+  </div>
+</section>
+
+<section class="page" id="services">
+  <h2>What we do</h2>
+  <p class="lead">Tap a service to see what you get.</p>
+  <div class="stack" id="svc"></div>
+</section>
+
+<section class="page" id="lab">
+  <h2>Free tools</h2>
+  <p class="lead">Run in your browser. Nothing you type leaves your device.</p>
+  <div class="grid">
+    <div class="panel">
+      <h3>Password strength</h3>
+      <input id="pw" type="text" autocomplete="off" placeholder="Type a password to test" aria-label="Password to test" style="width:100%">
+      <div class="meter"><i id="pwBar"></i></div>
+      <div id="pwOut" class="out">Try a long phrase of 4 random words.</div>
+    </div>
+    <div class="panel">
+      <h3>Computer health check</h3>
+      <div id="diag"></div>
+      <button class="p" id="diagGo">Diagnose</button>
+      <div id="diagOut" class="out"></div>
+    </div>
+  </div>
+</section>
+
+<section class="page" id="plan">
+  <h2>Plan your project</h2>
+  <p class="lead">Pick what you need. We turn it into a brief you can send us in one tap.</p>
+  <div class="grid">
+    <div class="panel">
+      <h3>Service</h3>
+      <div class="chips" id="pSvc"></div>
+      <h3>Size: <span id="szL"></span></h3>
+      <input type="range" id="sz" min="1" max="20" value="5" style="width:100%" aria-label="Project size">
+      <h3>Extras</h3>
+      <div id="pEx"></div>
+      <h3>When do you need it?</h3>
+      <select id="when"><option>As soon as possible</option><option>Within a month</option><option>In 2 to 3 months</option><option>No rush</option></select>
+    </div>
+    <div class="panel">
+      <h3>Your brief</h3>
+      <div id="brief" class="out"></div>
+      <div class="row"><a class="btn p" id="wa" target="_blank" rel="noopener">Send on WhatsApp</a><button id="cp">Copy brief</button></div>
+    </div>
+  </div>
+</section>
+
+<section class="page" id="contact">
+  <h2>Let's talk</h2>
+  <p class="lead">Call, message or use the form. It opens WhatsApp with your message ready.</p>
+  <div class="grid">
+    <div class="panel">
+      <h3>Reach us</h3>
+      <p><a href="tel:+26658042338">+266 5804 2338</a><br><a href="https://www.dall12.com">www.dall12.com</a></p>
+    </div>
+    <form class="panel" id="cf">
+      <h3>Send a message</h3>
+      <div class="row"><input id="cn" placeholder="Your name" required aria-label="Your name" style="flex:1"></div>
+      <div class="row"><textarea id="cm" rows="4" placeholder="How can we help?" required aria-label="Message" style="flex:1"></textarea></div>
+      <button class="p" type="submit">Open WhatsApp</button>
+    </form>
+  </div>
+</section>
+</main>
+<footer><a href="https://www.dall12.com">www.dall12.com</a><a href="tel:+26658042338">+266 5804 2338</a></footer>
+
+<div id="bot">
+  <div id="box" role="dialog" aria-label="DALL12 assistant">
+    <div id="log" aria-live="polite"></div>
+    <form id="bf"><input id="bi" placeholder="Ask anything..." aria-label="Message"><button class="p" type="submit">Send</button></form>
+  </div>
+  <button id="bt" aria-label="Open assistant">&#128172;</button>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+const $=s=>document.querySelector(s), PHONE='26658042338';
+const SERVICES=[
+ {k:'Web development',d:'Fast, mobile-first websites and web apps.',l:['Business sites and online shops','Booking, login and payment features','Search-friendly and quick to load']},
+ {k:'Software development',d:'Custom desktop and mobile software for how you really work.',l:['Records, billing and inventory systems','Dashboards and automation','Clean handover and training']},
+ {k:'Cybersecurity services',d:'Find weak spots before someone else does.',l:['Security review of sites and systems','Account and password hardening','Backup and recovery planning']},
+ {k:'Graphical designs',d:'Brand looks that people remember.',l:['Logos and brand kits','Flyers, posters and social posts','Pitch decks']},
+ {k:'Computer diagnosis',d:'Slow, noisy or broken computer? We find out why.',l:['Hardware and software checks','Virus and clean-up','Repair advice and upgrades']}];
+const EXTRAS=['Login and user accounts','Online payments','Admin dashboard','Security review','Logo and branding'];
+
+/* router */
+function route(){
+  const id=(location.hash||'#home').slice(1);const pg=document.getElementById(id)?id:'home';
+  document.querySelectorAll('.page').forEach(p=>p.classList.toggle('on',p.id===pg));
+  document.querySelectorAll('nav a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+pg));
+  window.scrollTo(0,0);window.__page=pg;
+}
+addEventListener('hashchange',route);
+
+/* home chips + services */
+const hc=$('#homeChips');
+SERVICES.forEach(s=>{const b=document.createElement('button');b.className='chip';b.textContent=s.k;b.onclick=()=>{location.hash='#services';openSvc(s.k)};hc.appendChild(b)});
+const sv=$('#svc');
+SERVICES.forEach(s=>{const a=document.createElement('div');a.className='acc';a.dataset.k=s.k;
+ a.innerHTML=`<button aria-expanded="false"><span class="dot"></span>${s.k}</button><div class="body"><p>${s.d}</p><ul>${s.l.map(x=>`<li>${x}</li>`).join('')}</ul><a class="btn p" href="#plan" data-svc="${s.k}">Plan this</a></div>`;
+ a.firstChild.onclick=()=>{const o=a.classList.toggle('open');a.firstChild.setAttribute('aria-expanded',o)};sv.appendChild(a)});
+function openSvc(k){document.querySelectorAll('.acc').forEach(a=>{const o=a.dataset.k===k;a.classList.toggle('open',o)})}
+sv.addEventListener('click',e=>{const t=e.target.closest('[data-svc]');if(t)plan.svc=t.dataset.svc,drawPlan()});
+
+/* tools: password */
+$('#pw').addEventListener('input',e=>{
+ const v=e.target.value;let pool=0;
+ if(/[a-z]/.test(v))pool+=26;if(/[A-Z]/.test(v))pool+=26;if(/\d/.test(v))pool+=10;if(/[^\w]/.test(v))pool+=33;
+ const bits=v?Math.round(v.length*Math.log2(pool||1)):0;
+ const common=/^(password|123456|qwerty|admin|letmein|lesotho|welcome)/i.test(v);
+ const pct=common?8:Math.min(100,bits*100/80);
+ $('#pwBar').style.width=pct+'%';$('#pwBar').style.background=pct<35?'#e5484d':pct<65?'#f5a524':'#22a559';
+ const word=common?'Very weak (common pattern)':pct<35?'Weak':pct<65?'Okay':'Strong';
+ $('#pwOut').textContent=v?`${word}. About ${bits} bits. ${v.length<12?'Make it 12+ characters. ':''}${common?'Never use common words. ':''}`:'Try a long phrase of 4 random words.';
+});
+/* tools: diagnosis */
+const SYM=[['slow','Slow to start or open apps'],['fan','Loud fan or very hot'],['popup','Pop-ups or strange programs'],['disk','Storage almost full'],['batt','Battery drains fast'],['crash','Freezes or restarts']];
+$('#diag').innerHTML=SYM.map(s=>`<label class="ck"><input type="checkbox" value="${s[0]}">${s[1]}</label>`).join('');
+const FIX={slow:'Slow: too many startup apps or a failing drive. Check startup list, then drive health.',fan:'Heat: dust in vents or dried thermal paste. Needs a clean-out.',popup:'Pop-ups: likely adware or malware. Run a full scan and remove unknown apps.',disk:'Storage: clear big files and old downloads. Keep 15% free.',batt:'Battery: worn cell or heavy background apps. Check battery health.',crash:'Freezes: possible failing RAM, drive or driver. Back up your files first.'};
+$('#diagGo').onclick=()=>{const c=[...document.querySelectorAll('#diag input:checked')].map(i=>i.value);
+ $('#diagOut').textContent=c.length?c.map(k=>FIX[k]).join('\n\n')+(c.length>=3||c.includes('crash')?'\n\nSeveral signs together. Bring it in for a proper check.':''):'Tick what you notice, then press Diagnose.'};
+
+/* planner */
+const plan={svc:'Web development',sz:5,ex:new Set(),when:'As soon as possible'};
+function drawPlan(){
+ const ps=$('#pSvc');ps.innerHTML='';
+ SERVICES.forEach(s=>{const b=document.createElement('button');b.className='chip'+(s.k===plan.svc?' on':'');b.textContent=s.k;b.onclick=()=>{plan.svc=s.k;drawPlan()};ps.appendChild(b)});
+ const unit=plan.svc==='Graphical designs'?'designs':plan.svc==='Computer diagnosis'?'machines':plan.svc==='Cybersecurity services'?'systems':'screens or pages';
+ $('#szL').textContent=plan.sz+' '+unit;
+ const ex=[...plan.ex];
+ const txt=`Hello DALL12, I want a quote.\nService: ${plan.svc}\nSize: ${plan.sz} ${unit}\nExtras: ${ex.length?ex.join(', '):'none'}\nTimeline: ${plan.when}`;
+ $('#brief').textContent=txt;$('#wa').href=`https://wa.me/${PHONE}?text=${encodeURIComponent(txt)}`;
+}
+$('#pEx').innerHTML=EXTRAS.map(x=>`<label class="ck"><input type="checkbox" value="${x}">${x}</label>`).join('');
+$('#pEx').addEventListener('change',e=>{e.target.checked?plan.ex.add(e.target.value):plan.ex.delete(e.target.value);drawPlan()});
+$('#sz').oninput=e=>{plan.sz=+e.target.value;drawPlan()};
+$('#when').onchange=e=>{plan.when=e.target.value;drawPlan()};
+$('#cp').onclick=()=>{const t=$('#brief').textContent;(navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(()=>$('#cp').textContent='Copied').catch(()=>$('#cp').textContent='Select and copy manually')};
+drawPlan();
+
+/* contact */
+$('#cf').onsubmit=e=>{e.preventDefault();const t=`Hi DALL12, I'm ${$('#cn').value}.\n${$('#cm').value}`;window.open(`https://wa.me/${PHONE}?text=${encodeURIComponent(t)}`,'_blank','noopener')};
+
+/* assistant */
+const INTENTS=[
+ [/(hello|hi|hey|howzit|sawubona)\b/,'Hi! I can help with websites, software, security, design or computer problems. What do you need?'],
+ [/(web|site|shop|store|landing|online)/,'We build fast websites and web apps, including shops, booking and payments. Plan one here: <a href="#plan">Plan a project</a>.'],
+ [/(software|app|system|dashboard|automat|invent|billing|ledger)/,'We build custom software, from billing and records to dashboards. See <a href="#services">Services</a> or start a <a href="#plan">project brief</a>.'],
+ [/(secur|hack|cyber|virus|malware|breach|password|safe)/,'We review sites and systems for weak spots and harden accounts. Test a password in <a href="#lab">Tools</a>, or book a security review via <a href="#plan">Plan a project</a>.'],
+ [/(logo|design|flyer|poster|brand|graphic)/,'We design logos, brand kits, flyers and posters. Start in <a href="#plan">Plan a project</a>.'],
+ [/(slow|repair|broken|fix|laptop|computer|pc|crash|diagnos)/,'Try the health check in <a href="#lab">Tools</a> for a first diagnosis. For a proper check, call <a href="tel:+26658042338">+266 5804 2338</a>.'],
+ [/(price|cost|quote|how much|budget)/,'Price depends on size and extras. Build a brief in <a href="#plan">Plan a project</a> and send it to us for a quote.'],
+ [/(call|phone|contact|whatsapp|reach|number|email)/,'Call <a href="tel:+26658042338">+266 5804 2338</a> or use <a href="#contact">Contact</a>.'],
+ [/(who|about|what do you)/,'DALL12 Technologies turns ideas into digital reality: web, software, cybersecurity, graphic design and computer diagnosis.']
+];
+const log=$('#log');
+function say(h,u){const d=document.createElement('div');d.className='m'+(u?' u':'');u?d.textContent=h:d.innerHTML=h;log.appendChild(d);log.scrollTop=log.scrollHeight}
+function ask(q){say(q,1);const l=q.toLowerCase();const hit=INTENTS.find(i=>i[0].test(l));
+ setTimeout(()=>say(hit?hit[1]:'I can help with web, software, security, design and computer repair. Try one of those, or call <a href="tel:+26658042338">+266 5804 2338</a>.'),350)}
+say('Hi, I\'m the DALL12 assistant. What are you working on?');
+$('#bt').onclick=()=>$('#box').classList.toggle('on');
+$('#bf').onsubmit=e=>{e.preventDefault();const v=$('#bi').value.trim();if(v){ask(v);$('#bi').value=''}};
+$('#heroAsk').onsubmit=e=>{e.preventDefault();const v=$('#heroQ').value.trim();if(v){$('#box').classList.add('on');ask(v);$('#heroQ').value=''}};
+$('#log').addEventListener('click',e=>{if(e.target.closest('a[href^="#"]'))$('#box').classList.remove('on')});
+
+/* theme */
+$('#theme').onclick=()=>{const r=document.documentElement;const dark=r.dataset.theme?r.dataset.theme==='dark':matchMedia('(prefers-color-scheme:dark)').matches;r.dataset.theme=dark?'light':'dark'};
+
+/* 3D */
+(function(){
+ try{
+  const cv=$('#gl'),R=new THREE.WebGLRenderer({canvas:cv,alpha:true,antialias:true});
+  R.setPixelRatio(Math.min(devicePixelRatio,2));
+  const S=new THREE.Scene(),C=new THREE.PerspectiveCamera(45,1,.1,100);C.position.z=7;
+  S.add(new THREE.AmbientLight(0xffffff,.7));
+  const L=new THREE.DirectionalLight(0xffffff,1);L.position.set(3,4,5);S.add(L);
+  const L2=new THREE.PointLight(0xcc8cf7,1.2,20);L2.position.set(-4,-2,3);S.add(L2);
+  const sh=new THREE.Shape();sh.moveTo(-1,-1.2);sh.lineTo(.2,-1.2);sh.absarc(.2,0,1.2,-Math.PI/2,Math.PI/2,false);sh.lineTo(-1,1.2);sh.lineTo(-1,-1.2);
+  const hole=new THREE.Path();hole.moveTo(-.4,-.5);hole.lineTo(.5,0);hole.lineTo(-.4,.6);hole.lineTo(-.4,-.5);sh.holes.push(hole);
+  const geo=new THREE.ExtrudeGeometry(sh,{depth:.7,bevelEnabled:true,bevelThickness:.08,bevelSize:.08,bevelSegments:3,curveSegments:32});geo.center();
+  const D=new THREE.Mesh(geo,new THREE.MeshStandardMaterial({color:0x2a0f8f,metalness:.9,roughness:.15,emissive:0x3a1bff,emissiveIntensity:.55}));S.add(D);
+  const ring=new THREE.Mesh(new THREE.TorusGeometry(2.3,.02,8,100),new THREE.MeshBasicMaterial({color:0xb0cdf7}));D.add(ring);ring.rotation.x=1.2;ring.material.color.set(0x35e0ff);
+  const ring2=new THREE.Mesh(new THREE.TorusGeometry(3,.015,8,120),new THREE.MeshBasicMaterial({color:0xc06bff}));D.add(ring2);ring2.rotation.y=1.1;
+  const wf=new THREE.Mesh(geo,new THREE.MeshBasicMaterial({color:0x35e0ff,wireframe:true,transparent:true,opacity:.22}));wf.scale.setScalar(1.05);D.add(wf);
+  const grid=new THREE.GridHelper(50,50,0x6d2bff,0x14306b);grid.position.y=-4;S.add(grid);
+  const N=700,pos=new Float32Array(N*3);for(let i=0;i<N*3;i++)pos[i]=(Math.random()-.5)*20;
+  const pg=new THREE.BufferGeometry();pg.setAttribute('position',new THREE.BufferAttribute(pos,3));
+  const P=new THREE.Points(pg,new THREE.PointsMaterial({color:0x35e0ff,size:.045,transparent:true,opacity:.8}));S.add(P);
+  let mx=0,my=0,boost=0;
+  addEventListener('pointermove',e=>{mx=e.clientX/innerWidth-.5;my=e.clientY/innerHeight-.5});
+  addEventListener('pointerdown',()=>boost=.25);
+  function size(){R.setSize(innerWidth,innerHeight,false);C.aspect=innerWidth/innerHeight;C.updateProjectionMatrix()}
+  addEventListener('resize',size);size();
+  const calm=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  const tgt={x:0,y:0,s:1};
+  (function tick(){
+   requestAnimationFrame(tick);
+   const wide=innerWidth>800,home=window.__page==='home';
+   tgt.x=home?(wide?2.2:0):(wide?3.6:0);tgt.y=home?(wide?0:-1.6):(wide?-.3:-3);tgt.s=home?(wide?1.2:.9):.55;
+   D.position.x+=(tgt.x-D.position.x)*.06;D.position.y+=(tgt.y-D.position.y)*.06;
+   const s=D.scale.x+(tgt.s-D.scale.x)*.06;D.scale.setScalar(s);
+   boost*=.95;
+   if(!calm){D.rotation.y+=.008+boost;ring.rotation.z+=.01;ring2.rotation.x+=.007;grid.position.z=(performance.now()*.0015)%1}
+   D.rotation.x+=((my*.8)-D.rotation.x)*.05;
+   P.rotation.y+=calm?0:.0006;P.rotation.x=my*.15;P.position.x=-mx*.6;
+   R.render(S,C);
+  })();
+ }catch(e){document.getElementById('gl').style.display='none'}
+})();
+const bo=$('#boot');setTimeout(()=>{bo.classList.add('off');setTimeout(()=>bo.remove(),700)},matchMedia('(prefers-reduced-motion:reduce)').matches?0:1500);
+document.addEventListener('pointermove',e=>{const c=e.target.closest&&e.target.closest('.panel,.acc');if(c){const r=c.getBoundingClientRect();c.style.setProperty('--x',e.clientX-r.left+'px');c.style.setProperty('--y',e.clientY-r.top+'px')}});
+route();
+</script>
+</body>
+</html>
